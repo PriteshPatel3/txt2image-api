@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Image Generation</title>
+
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Image Generation API</h1>
+        <form id="imageForm" class="mt-4">
+            <div class="form-group">
+                <label for="prompt">Enter your prompt:</label>
+                <input type="text" class="form-control" id="prompt" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Generate Image</button>
+        </form>
+        <div id="result" class="mt-4 text-center"></div>
+    </div>
+    <script>
+        const loadingGifUrl = "{{ url_for('static', path='loading.gif') }}";
+    
+        document.getElementById('imageForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const prompt = document.getElementById('prompt').value;
+    
+            // Show loading GIF
+            document.getElementById('result').innerHTML = `<img src="${loadingGifUrl}" alt="Loading..." class="img-fluid mt-3">`;
+            // document.getElementById('result').innerHTML = ''; // Clear previous results
+    
+            const response = await fetch('/generate-image/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ prompt }),
+            });
+    
+            const data = await response.json();
+            console.log(data);
+            
+            // Hide loading GIF
+            // document.getElementById('loading').innerHTML = ''; // Clear loading GIF
+    
+            document.getElementById('result').innerHTML = `<img src="${data.image}" alt="Generated Image" class="img-fluid mt-3">`;
+        };
+    </script>
+    <div>
+</div>
+</body>
+</html>
