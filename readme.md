@@ -30,7 +30,12 @@
   <a href="#license">License</a>
 </p>
 
-![screenshot](images\demo.gif)
+<h1 align="center">
+  <br>
+  <a href=""><img src="images\demo.gif" alt="demo" ></a>
+  <br>
+  <br>
+</h1>
 
 ## Key Features
 
